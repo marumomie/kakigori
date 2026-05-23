@@ -22,7 +22,6 @@ export default function Home() {
   const [selTime, setSelTime] = useState<string | null>(null)
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
-  const [email, setEmail] = useState('')
   const [availability, setAvailability] = useState<Avail>({})
   const [loadingAvail, setLoadingAvail] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -213,7 +212,7 @@ export default function Home() {
       const res = await fetch('/api/reservations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date: selDate, time: selTime, slotType: selType, name, email }),
+        body: JSON.stringify({ date: selDate, time: selTime, slotType: selType, name, phone }),
       })
       const data = await res.json()
       if (!res.ok) { setSubmitError(data.error || 'エラーが発生しました'); setSubmitting(false); return }
@@ -267,7 +266,7 @@ export default function Home() {
 
   function resetAll() {
     setStep(1); setSelType(null); setSelDate(null); setSelTime(null)
-    setName(''); setPhone(''); setEmail(''); setAvailability({})
+    setName(''); setPhone(''); setAvailability({})
     setSubmitError(''); setCompletedResv(null)
     setCancelMsg(null); setCancelMsg2(null); setCancelNum(''); setCancelNum2('')
   }
@@ -276,11 +275,12 @@ export default function Home() {
   const adminMonthLabel = `${adminCalYear}年${adminCalMonth+1}月`
 
   return (
-    <main className="min-h-screen bg-stone-50">
+    <main className="min-h-screen bg-gradient-to-b from-sky-50 to-stone-50">
       <div className="max-w-lg mx-auto px-4 py-6">
-        <div className="mb-5">
-          <h1 className="text-xl font-semibold text-stone-800">🍧 かき氷予約</h1>
-          <p className="text-xs text-stone-400 mt-0.5">完全予約制</p>
+        <div className="mb-5 text-center">
+          <div className="text-4xl mb-1">🍧</div>
+          <h1 className="text-2xl font-bold text-stone-800 tracking-wide">かき氷予約</h1>
+          <p className="text-xs text-stone-400 mt-1">完全予約制</p>
         </div>
 
         <div className="flex gap-2 mb-5">
@@ -389,13 +389,13 @@ export default function Home() {
                       className="w-full h-10 px-3 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 text-stone-800" />
                   </div>
                   <div>
-                    <label className="block text-xs text-stone-500 mb-1.5">メールアドレス <span className="text-stone-300">任意</span></label>
-                    <input value={email} onChange={e => setEmail(e.target.value)}
-                      placeholder="example@mail.com" type="email"
+                    <label className="block text-xs text-stone-500 mb-1.5">電話番号 <span className="text-red-400">*</span></label>
+                    <input value={phone} onChange={e => setPhone(e.target.value)}
+                      placeholder="090-0000-0000" type="tel"
                       className="w-full h-10 px-3 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 text-stone-800" />
                   </div>
                 </div>
-                <button onClick={() => goStep(5)} disabled={!name.trim()}
+                <button onClick={() => goStep(5)} disabled={!name.trim() || !phone.trim()}
                   className="w-full mt-5 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium disabled:opacity-40 hover:bg-teal-700 transition-colors">
                   確認画面へ →
                 </button>
@@ -412,7 +412,7 @@ export default function Home() {
                     ['日付', selDate?.replace(/-/g,'/')],
                     ['時間', selTime],
                     ['お名前', name],
-                    ...(email ? [['メール', email]] : []),
+                    ['電話番号', phone],
                   ] as [string, string][]).map(([l,v]) => (
                     <div key={l} className="flex justify-between text-sm border-b border-stone-200 pb-2 last:border-0 last:pb-0">
                       <span className="text-stone-500">{l}</span>
@@ -439,7 +439,6 @@ export default function Home() {
                     <p className="text-xs text-stone-500 mb-1">予約番号（キャンセル時に必要）</p>
                     <p className="text-2xl font-semibold text-teal-700 tracking-widest">{completedResv.number}</p>
                   </div>
-                  {email && <p className="text-xs text-stone-400 mt-3">確認メールを送付しました</p>}
                   <div className="mt-4">
                     <button onClick={resetAll} className="px-6 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors">
                       新しく予約する
