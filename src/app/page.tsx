@@ -21,6 +21,7 @@ export default function Home() {
   const [selDate, setSelDate] = useState<string | null>(null)
   const [selTime, setSelTime] = useState<string | null>(null)
   const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [availability, setAvailability] = useState<Avail>({})
   const [loadingAvail, setLoadingAvail] = useState(false)
@@ -151,7 +152,7 @@ export default function Home() {
   }
 
   function adminLogin() {
-    if (pin === (process.env.NEXT_PUBLIC_ADMIN_PIN || '1234')) { setAdminLoggedIn(true); setPinError(false) }
+    if (pin === (process.env.NEXT_PUBLIC_ADMIN_PIN || '0329')) { setAdminLoggedIn(true); setPinError(false) }
     else { setPinError(true); setPin('') }
   }
 
