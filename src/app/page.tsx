@@ -152,7 +152,7 @@ export default function Home() {
   }
 
   function adminLogin() {
-    if (pin === (process.env.NEXT_PUBLIC_ADMIN_PIN || '0329')) { setAdminLoggedIn(true); setPinError(false) }
+    if (pin === (process.env.ADMIN_PIN || '0329')) { setAdminLoggedIn(true); setPinError(false) }
     else { setPinError(true); setPin('') }
   }
 
@@ -299,11 +299,17 @@ export default function Home() {
             {step === 4 && (
               <div>
                 <button onClick={() => goStep(3)} className="text-sm text-stone-500 hover:text-stone-700 mb-3 flex items-center gap-1">← 時間に戻る</button>
-                <p className="text-xs text-stone-400 mb-3">ステップ 4 / 5　お名前を入力してください</p>
+                <p className="text-xs text-stone-400 mb-3">ステップ 4 / 5　お名前・電話番号を入力してください</p>
                 <div className="mb-3">
                   <label className="block text-xs text-stone-500 mb-1.5">お名前 <span className="text-red-400">*</span></label>
                   <input value={name} onChange={e => setName(e.target.value)} placeholder="山田 太郎"
                     className="w-full h-9 px-3 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 text-stone-800" />
+                </div>
+                <div className="mb-3">
+                  <label className="block text-xs text-stone-500 mb-1.5">電話番号 <span className="text-red-400">*</span></label>
+                  <input value={phone} onChange={e => setPhone(e.target.value)} placeholder="090-1234-5678" type="tel"
+                    className="w-full h-9 px-3 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 text-stone-800" />
+                  <p className="text-xs text-amber-600 mt-1.5 leading-relaxed">⚠️ 電話番号をご入力いただかない場合、当日の急なお知らせ（天候による営業変更など）をお伝えできない場合があります。</p>
                 </div>
                 <div className="mb-4">
                   <label className="block text-xs text-stone-500 mb-1.5">メールアドレス <span className="text-stone-400">（任意・確認メール送付）</span></label>
