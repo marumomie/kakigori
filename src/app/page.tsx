@@ -152,7 +152,7 @@ export default function Home() {
   }
 
   function adminLogin() {
-    if (pin === (process.env.ADMIN_PIN || '0329')) { setAdminLoggedIn(true); setPinError(false) }
+    if (pin === ('0329')) { setAdminLoggedIn(true); setPinError(false) }
     else { setPinError(true); setPin('') }
   }
 
