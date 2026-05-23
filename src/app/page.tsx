@@ -389,13 +389,14 @@ export default function Home() {
                       className="w-full h-10 px-3 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 text-stone-800" />
                   </div>
                   <div>
-                    <label className="block text-xs text-stone-500 mb-1.5">電話番号 <span className="text-red-400">*</span></label>
+                    <label className="block text-xs text-stone-500 mb-1.5">電話番号 <span className="text-stone-300">任意</span></label>
                     <input value={phone} onChange={e => setPhone(e.target.value)}
                       placeholder="090-0000-0000" type="tel"
                       className="w-full h-10 px-3 border border-stone-200 rounded-lg text-sm focus:outline-none focus:border-teal-400 text-stone-800" />
+                    <p className="text-xs text-amber-600 mt-1.5 leading-relaxed">⚠️ 入力がない場合、当日の営業中止などの緊急連絡ができません。できる限りご入力ください。</p>
                   </div>
                 </div>
-                <button onClick={() => goStep(5)} disabled={!name.trim() || !phone.trim()}
+                <button onClick={() => goStep(5)} disabled={!name.trim()}
                   className="w-full mt-5 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium disabled:opacity-40 hover:bg-teal-700 transition-colors">
                   確認画面へ →
                 </button>
@@ -438,6 +439,10 @@ export default function Home() {
                   <div className="mt-4 inline-block bg-teal-50 rounded-xl px-6 py-3">
                     <p className="text-xs text-stone-500 mb-1">予約番号（キャンセル時に必要）</p>
                     <p className="text-2xl font-semibold text-teal-700 tracking-widest">{completedResv.number}</p>
+                  </div>
+                  <div className="mt-3 mx-auto max-w-xs bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+                    <p className="text-xs text-amber-700 font-medium">📸 この画面をスクリーンショットして保存してください</p>
+                    <p className="text-xs text-amber-600 mt-1">予約番号はキャンセル時に必要です</p>
                   </div>
                   <div className="mt-4">
                     <button onClick={resetAll} className="px-6 py-2.5 bg-teal-600 text-white rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors">
