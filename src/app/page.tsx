@@ -154,10 +154,10 @@ export default function Home() {
       cells.push(
         <button key={ds} onClick={() => { if (!disabled) { setSelDate(ds); setSelTime(null) } }}
           disabled={disabled}
-          className={`aspect-square rounded-lg border text-sm flex items-center justify-center transition-all
-            ${disabled ? 'opacity-30 cursor-default bg-stone-100' : 'cursor-pointer hover:bg-stone-50'}
-            ${sel ? 'bg-teal-50 border-teal-500 text-teal-800 font-medium' : 'border-stone-200 text-stone-700'}
-            ${!disabled && isOpen ? 'ring-1 ring-teal-200' : ''}`}
+          className={`aspect-square rounded-lg border text-sm font-medium flex items-center justify-center transition-all
+            ${disabled ? 'opacity-25 cursor-default bg-stone-100 border-stone-200 text-stone-400' : ''}
+            ${!disabled && !sel ? 'bg-teal-500 border-teal-500 text-white hover:bg-teal-600 cursor-pointer shadow-sm' : ''}
+            ${sel ? 'bg-teal-700 border-teal-700 text-white font-bold shadow-md ring-2 ring-teal-300' : ''}`}
         >{d}</button>
       )
     }
@@ -279,7 +279,8 @@ export default function Home() {
       <div className="max-w-lg mx-auto px-4 py-6">
         <div className="mb-5 text-center">
           <div className="text-4xl mb-1">🍧</div>
-          <h1 className="text-2xl font-bold text-stone-800 tracking-wide">かき氷予約</h1>
+          <p className="text-sm font-bold text-teal-600 tracking-widest mb-0.5">かき氷 マルモ</p>
+          <h1 className="text-2xl font-bold text-stone-800 tracking-wide">ご予約フォーム</h1>
           <p className="text-xs text-stone-400 mt-1">完全予約制</p>
         </div>
 
@@ -313,7 +314,7 @@ export default function Home() {
 
             {step === 2 && (
               <div>
-                <button onClick={() => goStep(1)} className="text-xs text-stone-400 mb-3 hover:text-stone-600">← 戻る</button>
+                <button onClick={() => goStep(1)} className="flex items-center gap-1 text-sm text-teal-600 font-medium mb-3 hover:text-teal-800 border border-teal-200 rounded-lg px-3 py-1.5 bg-teal-50 hover:bg-teal-100 transition-colors">← 戻る</button>
                 <h2 className="text-base font-semibold text-stone-800 mb-1">日付を選んでください</h2>
                 <p className="text-xs text-stone-400 mb-4">営業日のみ選択できます</p>
                 <div className="flex items-center justify-between mb-3">
@@ -327,11 +328,15 @@ export default function Home() {
                 <div className="grid grid-cols-7 gap-1">
                   {renderCalendar()}
                 </div>
-                <div className="flex items-center gap-2 mt-3">
-                  <div className="w-4 h-4 rounded border border-stone-200 bg-stone-100" />
-                  <span className="text-xs text-stone-400">予約不可</span>
-                  <div className="w-4 h-4 rounded border border-teal-300 bg-white ring-1 ring-teal-200 ml-3" />
-                  <span className="text-xs text-stone-400">予約可能</span>
+                <div className="flex items-center gap-4 mt-3">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-5 h-5 rounded bg-teal-500" />
+                    <span className="text-xs text-stone-500 font-medium">予約できます</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-5 h-5 rounded bg-stone-100 border border-stone-200" />
+                    <span className="text-xs text-stone-400">予約不可</span>
+                  </div>
                 </div>
                 {selDate && (
                   <button onClick={() => goStep(3)}
@@ -344,7 +349,7 @@ export default function Home() {
 
             {step === 3 && (
               <div>
-                <button onClick={() => goStep(2)} className="text-xs text-stone-400 mb-3 hover:text-stone-600">← 戻る</button>
+                <button onClick={() => goStep(2)} className="flex items-center gap-1 text-sm text-teal-600 font-medium mb-3 hover:text-teal-800 border border-teal-200 rounded-lg px-3 py-1.5 bg-teal-50 hover:bg-teal-100 transition-colors">← 戻る</button>
                 <h2 className="text-base font-semibold text-stone-800 mb-1">時間を選んでください</h2>
                 <p className="text-xs text-stone-400 mb-4">{selDate?.replace(/-/g,'/')}　{selType}杯枠</p>
                 {loadingAvail ? <p className="text-sm text-stone-400 py-4">読み込み中...</p> : (
@@ -379,7 +384,7 @@ export default function Home() {
 
             {step === 4 && (
               <div>
-                <button onClick={() => goStep(3)} className="text-xs text-stone-400 mb-3 hover:text-stone-600">← 戻る</button>
+                <button onClick={() => goStep(3)} className="flex items-center gap-1 text-sm text-teal-600 font-medium mb-3 hover:text-teal-800 border border-teal-200 rounded-lg px-3 py-1.5 bg-teal-50 hover:bg-teal-100 transition-colors">← 戻る</button>
                 <h2 className="text-base font-semibold text-stone-800 mb-4">お名前を入力してください</h2>
                 <div className="space-y-3">
                   <div>
@@ -405,7 +410,7 @@ export default function Home() {
 
             {step === 5 && (
               <div>
-                <button onClick={() => goStep(4)} className="text-xs text-stone-400 mb-3 hover:text-stone-600">← 戻る</button>
+                <button onClick={() => goStep(4)} className="flex items-center gap-1 text-sm text-teal-600 font-medium mb-3 hover:text-teal-800 border border-teal-200 rounded-lg px-3 py-1.5 bg-teal-50 hover:bg-teal-100 transition-colors">← 戻る</button>
                 <h2 className="text-base font-semibold text-stone-800 mb-4">予約内容の確認</h2>
                 <div className="bg-stone-50 rounded-xl p-4 mb-4 space-y-2.5">
                   {([
